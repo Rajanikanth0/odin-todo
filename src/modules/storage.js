@@ -18,10 +18,10 @@ function isStorageAvailable() {
 function addProjectData(project) {
   if ( !isStorageAvailable() ) return;
 
-  let data = localStorage.getItem("data") || "[]";
+  let data = localStorage.getItem("data") || "{}";
   data = JSON.parse(data);
 
-  data.push(project);
+  data[project.id] = project;
   localStorage.setItem("data", JSON.stringify(data));
 }
 

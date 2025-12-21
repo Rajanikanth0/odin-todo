@@ -1,5 +1,5 @@
 import "./styles.css";
-import { addProjectData } from "./modules/storage.js";
+import { addProjectData, addTaskData } from "./modules/storage.js";
 
 const data1 = {
   name: "Setup Steam Family",
@@ -15,8 +15,8 @@ addProjectData(data1);
 const task1 = {
   name: "get info about steam family"
 };
-test1.id = crypto.randomUUID();
-test1.done = false;
+task1.id = crypto.randomUUID();
+task1.done = false;
 
 addTaskData(data1.id, task1);
 
