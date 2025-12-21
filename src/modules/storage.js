@@ -15,14 +15,29 @@ function isStorageAvailable() {
   }
 }
 
-function addProjectData(project) {
-  if ( !isStorageAvailable() ) return;
-
+function getStorageData() {
   let data = localStorage.getItem("data") || "{}";
   data = JSON.parse(data);
 
-  data[project.id] = project;
+  return data;
+}
+function setStorageData(data) {
   localStorage.setItem("data", JSON.stringify(data));
 }
 
-export { addProjectData };
+function addTaskData(projectId, task) {
+  const data = getStorageData();
+  const project = data[projectId];
+  project.tasks[task.id] = task;
+
+  setStorageData(data);
+}
+
+function addProjectData(project) {
+  const data = getStorageData();
+  data[project.id] = project;
+
+  setStorageData(data);
+}
+
+export { addProjectData, addTaskData, isStorageAvailable };
