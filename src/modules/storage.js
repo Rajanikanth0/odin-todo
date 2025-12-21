@@ -40,4 +40,19 @@ function addProjectData(project) {
   setStorageData(data);
 }
 
-export { addProjectData, addTaskData, isStorageAvailable };
+function removeProjectData(projectId) {
+  const data = getStorageData();
+  delete data[projectId];
+
+  setStorageData(data);
+}
+
+function removeTaskData(projectId, taskId) {
+  const data = getStorageData();
+  const project = data[projectId];
+  delete project.tasks[taskId];
+
+  setStorageData(data);
+}
+
+export { addProjectData, addTaskData, isStorageAvailable, removeProjectData, removeTaskData };

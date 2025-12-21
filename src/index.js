@@ -2,7 +2,9 @@ import "./styles.css";
 import {
   addProjectData,
   addTaskData,
-  isStorageAvailable
+  isStorageAvailable,
+  removeProjectData,
+  removeTaskData
 } from "./modules/storage.js";
 
 function todo() {
@@ -45,6 +47,10 @@ function todo() {
   task2.done = false;
 
   addTaskData(data1.id, task2);
+
+  // test to remove some data
+  removeProjectData(data2.id);
+  removeTaskData(data1.id, task1.id);
 }
 
 todo();
