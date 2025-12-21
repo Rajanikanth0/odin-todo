@@ -15,7 +15,7 @@ function isStorageAvailable() {
   }
 }
 
-function handleData(project) {
+function addProjectData(project) {
   if ( !isStorageAvailable() ) return;
 
   let data = localStorage.getItem("data") || "[]";
@@ -25,4 +25,4 @@ function handleData(project) {
   localStorage.setItem("data", JSON.stringify(data));
 }
 
-export { handleData };
+export { addProjectData };
