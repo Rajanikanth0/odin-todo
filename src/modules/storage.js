@@ -1,46 +1,42 @@
 const STORAGE_KEY = "data";
+const TEST_KEY = "__storage_test__";
 
 // Check if localStorage is available and usable
-const isStorageAvailable = function() {
+const storageAvailable = () => {
   try {
-    const testKey = "__storage_test__";
-    localStorage.setItem(testKey, testKey);
-    localStorage.removeItem(testKey);
+    localStorage.setItem(TEST_KEY, TEST_KEY);
+    localStorage.removeItem(TEST_KEY);
     return true;
     
   } catch (e) {
-    return (
-      e instanceof DOMException &&
-      e.name === "QuotaExceededError" &&
-      localStorage &&
-      localStorage.length !== 0
-    );
+    return !(e instanceof DOMException && e.name === "QuotaExceededError");
   }
-}
+};
+
+// Safely parse JSON
+const safeParse = (raw) => {
+  try { return JSON.parse(raw); }
+  catch { return {}; }
+};
 
 // Retrieve parsed storage data safely
-const getStorageData = function() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : {};
-  }
-  catch(e) {
-    // Fallback if JSON is corrupted
-    return {};
-  }
-}
+const getStorageData = () => {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  return raw ? safeParse(raw) : {};
+};
 
 // Save structured data into storage
-const setStorageData = function(data) {
-  if ( isStorageAvailable() ) {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    } catch (e) {
-      console.error("Failed to save data to localStorage:", e);
-    }
-  } else {
+const setStorageData = (data) => {
+  if ( !storageAvailable() ) {
     console.warn("localStorage is not available");
+    return;
   }
-}
+
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (e) {
+    console.error("Failed to save data to localStorage:", e);
+  }
+};
 
 export { getStorageData, setStorageData };
