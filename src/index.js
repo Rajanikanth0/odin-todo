@@ -6,7 +6,7 @@ import {
 } from "./modules/storage.js";
 
 function todo() {
-  if ( !isStorageAvailable() ) return;
+  if ( !Storage.isAvailable() ) return;
 
   const project1 = new Project(
     "Setup Steam Family",
@@ -14,38 +14,28 @@ function todo() {
     "2025-12-21"
   );
 
-  addProjectData(data1);
+  project1.addData();
 
-  const task1 = {
-    name: "get info about steam family"
-  };
-  task1.id = crypto.randomUUID();
-  task1.done = false;
+  const task1 = new Task("get info about steam family");
+  task1.addData(project1);
 
-  addTaskData(data1.id, task1);
+  const project2 = new Project(
+    "Search for a hide-and-seek game",
+    "the game should have a story with some stealth mode, could have some horror scenes for twist.",
+    "2025-12-25",
+  );
 
-  const data2 = {
-    name: "Search for a hide-and-seek game",
-    description: "the game should have a story with some stealth mode, could have some horror scenes for twist.",
-    date: "2025-12-25",
-  };
-  data2.id = crypto.randomUUID();
-  data2.done = false;
-  data2.tasks = {};
+  project2.addData();
 
-  addProjectData(data2);
+  const task2 = new Task(
+    "launch a game on two accounts at the same time."
+  );
 
-  const task2 = {
-    name: "launch a game on two accounts at the same time."
-  };
-  task2.id = crypto.randomUUID();
-  task2.done = false;
-
-  addTaskData(data1.id, task2);
+  task2.addData(project1);
 
   // test to remove some data
-  removeProjectData(data2.id);
-  removeTaskData(data1.id, task1.id);
+  project2.removeData();
+  task1.removeData(project1);
 }
 
 todo();

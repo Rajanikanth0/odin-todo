@@ -1,20 +1,3 @@
-// function isStorageAvailable() {
-//   try {
-//     const x = "__storage_test__";
-//     localStorage.setItem(x, x);
-//     localStorage.removeItem(x);
-
-//     return true;
-//   } catch (e) {
-//     return (
-//       e instanceof DOMException &&
-//       e.name === "QuotaExceededError" &&
-//       localStorage &&
-//       localStorage.length !== 0
-//     );
-//   }
-// }
-
 class Storage {
   static isAvailable() {
     try {
@@ -33,14 +16,14 @@ class Storage {
     }
   }
   
-  getData() {
+  getStorageData() {
     let data = localStorage.getItem("data") || "{}";
     data = JSON.parse(data);
 
     return data;
   }
 
-  setData(data) {
+  setStorageData(data) {
     localStorage.setItem("data", JSON.stringify(data));
   }
 }
@@ -49,6 +32,8 @@ class Project extends Storage {
   constructor(
     name, description, date
   ) {
+    super();
+
     this.name = name;
     this.description = description;
     this.date = date;
@@ -58,77 +43,51 @@ class Project extends Storage {
     this.tasks = {};
   }
 
-  addData(project) {
-    const data = getStorageData();
-    data[project.id] = project;
+  // add constructor properties into an object
+  getData = () => this;
 
-    setStorageData(data);
+  addData() {
+    const data = this.getStorageData();
+    data[this.id] = this.getData();
+
+    this.setStorageData(data);
   }
 
-  removeData(projectId) {
-    const data = getStorageData();
-    delete data[projectId];
+  removeData() {
+    const data = this.getStorageData();
+    delete data[this.id];
 
-    setStorageData(data);
+    this.setStorageData(data);
   }
 }
 
 class Task extends Storage {
-  addData(projectId, task) {
-    const data = getStorageData();
-    const project = data[projectId];
-    project.tasks[task.id] = task;
+  constructor(name) {
+    super();
 
-    setStorageData(data);
+    this.name = name;
+    // custom properties
+    this.id = crypto.randomUUID();
+    this.done = false;
   }
 
-  removeData(projectId, taskId) {
-    const data = getStorageData();
-    const project = data[projectId];
-    delete project.tasks[taskId];
+  getData = () => this;
 
-    setStorageData(data);
+  addData(project) {
+    const data = this.getStorageData();
+    const projectData = data[project.id];
+    projectData.tasks[this.id] = this.getData();
+
+    this.setStorageData(data);
+  }
+
+  removeData(project) {
+    const data = this.getStorageData();
+    const projectData = data[project.id];
+    delete projectData.tasks[this.id];
+
+    this.setStorageData(data);
   }
 }
-
-// function getStorageData() {
-//   let data = localStorage.getItem("data") || "{}";
-//   data = JSON.parse(data);
-
-//   return data;
-// }
-// function setStorageData(data) {
-//   localStorage.setItem("data", JSON.stringify(data));
-// }
-
-// function addTaskData(projectId, task) {
-//   const data = getStorageData();
-//   const project = data[projectId];
-//   project.tasks[task.id] = task;
-
-//   setStorageData(data);
-// }
-
-// function addProjectData(project) {
-//   const data = getStorageData();
-//   data[project.id] = project;
-
-//   setStorageData(data);
-// }
-
-// function removeProjectData(projectId) {
-//   const data = getStorageData();
-//   delete data[projectId];
-
-//   setStorageData(data);
-// }
-
-// function removeTaskData(projectId, taskId) {
-//   const data = getStorageData();
-//   const project = data[projectId];
-//   delete project.tasks[taskId];
-
-//   setStorageData(data);
-// }
 
 export { Storage, Project, Task };
