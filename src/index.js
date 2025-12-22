@@ -35,6 +35,7 @@ function todo() {
 
   // test to remove some data
   project2.removeData();
+  project2.removeData();
   task1.removeData(project1);
 }
 

@@ -1,11 +1,14 @@
 class Storage {
+  static STORAGE_KEY = "data";
+
+  // Check if localStorage is available and usable
   static isAvailable() {
     try {
-      const x = "__storage_test__";
-      localStorage.setItem(x, x);
-      localStorage.removeItem(x);
-
+      const testKey = "__storage_test__";
+      localStorage.setItem(testKey, testKey);
+      localStorage.removeItem(testKey);
       return true;
+      
     } catch (e) {
       return (
         e instanceof DOMException &&
@@ -16,78 +19,107 @@ class Storage {
     }
   }
   
+  // Retrieve parsed storage data safely
   getStorageData() {
-    let data = localStorage.getItem("data") || "{}";
-    data = JSON.parse(data);
-
-    return data;
+    try {
+      const raw = localStorage.getItem(Storage.STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    }
+    catch {
+      // Fallback if JSON is corrupted
+      return {};
+    }
   }
 
+  // Save structured data into storage
   setStorageData(data) {
-    localStorage.setItem("data", JSON.stringify(data));
+    if ( Storage.isAvailable() ) {
+      try {
+        localStorage.setItem(Storage.STORAGE_KEY, JSON.stringify(data));
+      } catch (e) {
+        console.error("Failed to save data to localStorage:", e);
+      }
+    } else {
+      console.warn("localStorage is not available");
+    }
   }
 }
 
 class Project extends Storage {
-  constructor(
-    name, description, date
-  ) {
+  constructor(name, description, date) {
     super();
-
+    this.id = crypto.randomUUID();
     this.name = name;
     this.description = description;
     this.date = date;
-    // custom properties
-    this.id = crypto.randomUUID();
     this.done = false;
     this.tasks = {};
   }
 
-  // add constructor properties into an object
-  getData = () => this;
+  // Return a plain object snapshot of the project
+  getData() {
+    return {
+      id: this.id,
+      name: this.name,
+      description: this.description,
+      date: this.date,
+      done: this.done,
+      tasks: this.tasks,
+    };
+  }
 
+  // Save project data into storage (create or update)
   addData() {
     const data = this.getStorageData();
-    data[this.id] = this.getData();
-
+    
+    data[this.id] = this.getData(); // always create/update
     this.setStorageData(data);
   }
 
+  // Remove project data from storage
   removeData() {
     const data = this.getStorageData();
-    delete data[this.id];
 
+    if (!data[this.id]) {
+      console.error(`Project with id {this.id} not found in storage`);
+      return;
+    }
+    
+    delete data[this.id];
     this.setStorageData(data);
+  }
+
+  // Add a task to this project
+  addTask(task) {
+    this.tasks[task.id] = task.getData();
+    this.addData();
+  }
+
+  // Remove a task from this project
+  removeTask(taskId) {
+    if (this.tasks[taskId]) {
+      delete this.tasks[taskId];
+      this.addData();
+    }
   }
 }
 
-class Task extends Storage {
+class Task {
   constructor(name) {
     super();
-
-    this.name = name;
-    // custom properties
     this.id = crypto.randomUUID();
+    this.name = name;
     this.done = false;
   }
 
-  getData = () => this;
-
-  addData(project) {
-    const data = this.getStorageData();
-    const projectData = data[project.id];
-    projectData.tasks[this.id] = this.getData();
-
-    this.setStorageData(data);
-  }
-
-  removeData(project) {
-    const data = this.getStorageData();
-    const projectData = data[project.id];
-    delete projectData.tasks[this.id];
-
-    this.setStorageData(data);
+  // Return a plain object snapshot of the task
+  getData() {
+    return {
+      id: this.id,
+      name: this.name,
+      done: this.done
+    };
   }
 }
 
-export { Storage, Project, Task };
+export { isStorageAvailable, Project, Task };
