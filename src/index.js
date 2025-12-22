@@ -1,13 +1,7 @@
 import "./styles.css";
-import {
-  Storage,
-  Project,
-  Task,
-} from "./modules/storage.js";
+import { Project, Task } from "./modules/project.js";
 
 function todo() {
-  if ( !Storage.isAvailable() ) return;
-
   const project1 = new Project(
     "Setup Steam Family",
     "Use an account subscription benefits on many other devices with their own account",
@@ -17,7 +11,7 @@ function todo() {
   project1.addData();
 
   const task1 = new Task("get info about steam family");
-  task1.addData(project1);
+  project1.addTask(task1);
 
   const project2 = new Project(
     "Search for a hide-and-seek game",
@@ -31,12 +25,11 @@ function todo() {
     "launch a game on two accounts at the same time."
   );
 
-  task2.addData(project1);
+  project1.addTask(task2);
 
   // test to remove some data
   project2.removeData();
-  project2.removeData();
-  task1.removeData(project1);
+  project1.removeTask(task1);
 }
 
 todo();
