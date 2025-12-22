@@ -1,23 +1,18 @@
 import "./styles.css";
 import {
-  addProjectData,
-  addTaskData,
-  isStorageAvailable,
-  removeProjectData,
-  removeTaskData
+  Storage,
+  Project,
+  Task,
 } from "./modules/storage.js";
 
 function todo() {
   if ( !isStorageAvailable() ) return;
 
-  const data1 = {
-    name: "Setup Steam Family",
-    description: "Use an account subscription benefits on many other devices with their own account",
-    date: "2025-12-21",
-  };
-  data1.id = crypto.randomUUID();
-  data1.done = false;
-  data1.tasks = {};
+  const project1 = new Project(
+    "Setup Steam Family",
+    "Use an account subscription benefits on many other devices with their own account",
+    "2025-12-21"
+  );
 
   addProjectData(data1);
 
