@@ -5,62 +5,72 @@ html {
   box-sizing: inherit;
 }
 :root {
-  --big-padding: 1rem;
-  --small-padding: 0.5rem;
+  --big-space: 1rem;
+  --small-space: 0.5rem;
+}
+body {
+  margin: var(--big-space);
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+button {
+  border: none;
+  font: inherit;
+  cursor: pointer;
 }
 
 .container {
   width: 55rem;
   margin: 0 auto;
-  background-color: white;
-  padding: var(--big-padding);
+  padding: var(--big-space);
 
   display: grid;
-  gap: 1rem;
+  gap: var(--big-space);
   grid-template-columns: 15rem 1fr;
+
+  background-color: lightblue;
 }
 
-.sidebar {
-  padding: var(--small-padding);
-  background-color: hsl(200, 40%, 80%);
-}
 .sidebar ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--big-space);
 }
 .sidebar li {
-  padding: var(--big-padding);
-  background-color: hsl(200, 50%, 60%);
+  padding: var(--big-space);
+  background-color: white;
 }
 
 .content {
-  padding: var(--small-padding);
-  background-color: hsl(200, 40%, 80%);
-  
-  display: grid;
-  gap: var(--small-padding);
-}
-.content ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--big-space);
 }
 
-.content li {
-  background-color: hsl(200, 50%, 60%);
-  padding: var(--big-padding);
-}
-.main-content {
-  padding: var(--big-padding);
-  background-color: hsl(200, 50%, 60%);
+.content ul {
+  padding: var(--small-space);
+  background-color: white;
 
   display: flex;
-  gap: var(--big-padding);
-  flex-direction: column;
+  gap: var(--small-space);
+}
+.content button {
+  padding: var(--small-space);
 }
 
+.main-content {
+  padding: var(--small-space);
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--small-space);
+}
 .main-content > * {
-  padding: var(--big-padding);
-  background-color: hsl(200, 60%, 40%);
+  background-color: lightgray;
+  padding: var(--big-space);
 }
