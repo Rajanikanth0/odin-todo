@@ -1,17 +1,19 @@
 import { getStorageData } from "../modules/storage";
 import { Project } from "../modules/project";
+import { createElement } from "./utilities";
 
-function createElement(tag, { classes = [], text = "" } = []) {
-  const element = document.createElement(tag);
-  if (classes.length) element.classList.add(...classes);
-  if (text) element.textContent = text;
+function getNavElement() {
+  const newProjectButton = createElement("li", {
+    classes: ["new-projectButton"],
+    text: "New Project",
+  });
 
-  return element;
+  return newProjectButton;
 }
 
-function getProjectElement() {
+function getContentElement() {
   const data = getStorageData();
-  const projects = document.createDocumentFragment();
+  const box = document.createDocumentFragment();
   
   for (const projectData of Object.values(data)) {
     const project = Project.getProjectPrototype(projectData);
@@ -21,10 +23,10 @@ function getProjectElement() {
       text: project.getData().name
     });
 
-    projects.appendChild(div);
+    box.appendChild(div);
   }
 
-  return projects;
+  return box;
 }
 
 function renderProjectTab() {
@@ -34,13 +36,8 @@ function renderProjectTab() {
   ul.textContent = "";
   mainContent.textContent = "";
 
-  const newProjectButton = createElement("li", {
-    classes: ["new-projectButton"],
-    text: "New Project",
-  });
-
-  ul.appendChild(newProjectButton);
-  mainContent.appendChild( getProjectElement() );
+  ul.appendChild( getNavElement() );
+  mainContent.appendChild( getContentElement() );
 }
 
 export { renderProjectTab };
