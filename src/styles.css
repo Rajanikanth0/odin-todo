@@ -41,6 +41,7 @@ button {
   gap: var(--big-space);
 }
 .sidebar li {
+  cursor: pointer;
   padding: var(--big-space);
   background-color: white;
 }
@@ -58,11 +59,13 @@ button {
   display: flex;
   gap: var(--small-space);
 }
-.content button {
+.content li {
+  background-color: rgb(236, 236, 236);
   padding: var(--small-space);
 }
 
 .main-content {
+  flex: 1;
   padding: var(--small-space);
   background-color: white;
 
