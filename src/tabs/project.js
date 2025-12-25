@@ -9,17 +9,6 @@ function createElement(tag, { classes = [], text = "" } = []) {
   return element;
 }
 
-function getNavElement() {
-  const ul = createElement("ul");
-  const newProjectButton = createElement("li", {
-    classes: ["new-projectButton"],
-    text: "New Project",
-  });
-
-  ul.appendChild(newProjectButton);
-  return ul;
-}
-
 function getProjectElement() {
   const data = getStorageData();
   const projects = document.createDocumentFragment();
@@ -38,16 +27,20 @@ function getProjectElement() {
   return projects;
 }
 
-function getMainContentElement() {
-  const mainContent = createElement("div", { classes: ["main-content"] });
-  mainContent.appendChild( getProjectElement() );
-
-  return mainContent;
-}
-
 function renderProjectTab() {
-  const content = document.querySelector(".content");
-  content.append(getNavElement(), getMainContentElement());
+  const ul = document.querySelector(".content .nav-bar");
+  const mainContent = document.querySelector(".main-content");
+
+  ul.textContent = "";
+  mainContent.textContent = "";
+
+  const newProjectButton = createElement("li", {
+    classes: ["new-projectButton"],
+    text: "New Project",
+  });
+
+  ul.appendChild(newProjectButton);
+  mainContent.appendChild( getProjectElement() );
 }
 
 export { renderProjectTab };

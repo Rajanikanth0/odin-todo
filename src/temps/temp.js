@@ -1,8 +1,7 @@
 import "./styles.css";
 import { Project, Task } from "./modules/project.js";
-import { renderProjectTab } from "./tabs/project";
 
-function addDataManually() {
+function todo() {
   const project1 = new Project(
     "Setup Steam Family",
     "Use an account subscription benefits on many other devices with their own account",
@@ -27,10 +26,10 @@ function addDataManually() {
   );
 
   project1.addTask(task2);
+
+  // test to remove some data
+  project2.removeData();
+  project1.removeTask(task1);
 }
 
-// const sidebarProject = document.querySelector(".sidebar .project");
-// sidebarProject.addEventListener("click", renderProjectTab);
-
-// addDataManually();
-renderProjectTab();
+todo();
