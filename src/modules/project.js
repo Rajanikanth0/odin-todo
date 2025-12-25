@@ -1,6 +1,19 @@
 import { getStorageData, setStorageData } from "./storage.js";
 
 class Project {
+  static getProjectPrototype(obj) {
+    const project = new Project(
+      obj.name,
+      obj.description,
+      obj.data,
+    );
+    project.id = obj.id;
+    project.done = obj.done;
+    project.tasks = obj.tasks;
+
+    return project;
+  }
+
   constructor(name, description, date) {
     this.id = crypto.randomUUID();
     this.name = name;
