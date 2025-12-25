@@ -4,3 +4,63 @@ html {
 *, *::before, *::after {
   box-sizing: inherit;
 }
+:root {
+  --big-padding: 1rem;
+  --small-padding: 0.5rem;
+}
+
+.container {
+  width: 55rem;
+  margin: 0 auto;
+  background-color: white;
+  padding: var(--big-padding);
+
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 15rem 1fr;
+}
+
+.sidebar {
+  padding: var(--small-padding);
+  background-color: hsl(200, 40%, 80%);
+}
+.sidebar ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sidebar li {
+  padding: var(--big-padding);
+  background-color: hsl(200, 50%, 60%);
+}
+
+.content {
+  padding: var(--small-padding);
+  background-color: hsl(200, 40%, 80%);
+  
+  display: grid;
+  gap: var(--small-padding);
+}
+.content ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.content li {
+  background-color: hsl(200, 50%, 60%);
+  padding: var(--big-padding);
+}
+.main-content {
+  padding: var(--big-padding);
+  background-color: hsl(200, 50%, 60%);
+
+  display: flex;
+  gap: var(--big-padding);
+  flex-direction: column;
+}
+
+.main-content > * {
+  padding: var(--big-padding);
+  background-color: hsl(200, 60%, 40%);
+}
