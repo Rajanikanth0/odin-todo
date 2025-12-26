@@ -1,22 +1,4 @@
-import { createElement } from "./utilities.js";
-
-function getList(tasks) {
-  const ul = createElement("ul");
-
-  for (const task of tasks) {
-    const li = createElement("li");
-    
-    const input = createElement("input");
-    input.setAttribute("type", "checkbox");
-
-    const label = createElement("div", { text: task });
-
-    li.append(input, label);
-    ul.appendChild(li);
-  }
-
-  return ul;
-}
+import { createElement, getCheckList } from "./utilities.js";
 
 function renderTodayTab() {
   const newButton = createElement("button", {
@@ -33,7 +15,7 @@ function renderTodayTab() {
     "Print handouts for attendees",
   ];
 
-  const list = getList(tasks);
+  const list = getCheckList(tasks);
 
   // append elements
   const content = document.querySelector(".content");

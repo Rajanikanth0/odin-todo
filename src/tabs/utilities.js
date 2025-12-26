@@ -6,4 +6,22 @@ function createElement(tag, { classes = [], text = "" } = []) {
   return element;
 }
 
-export { createElement };
+function getCheckList(tasks) {
+  const ul = createElement("ul");
+
+  for (const task of tasks) {
+    const li = createElement("li");
+    
+    const input = createElement("input");
+    input.setAttribute("type", "checkbox");
+
+    const label = createElement("div", { text: task });
+
+    li.append(input, label);
+    ul.appendChild(li);
+  }
+
+  return ul;
+}
+
+export { createElement, getCheckList };
