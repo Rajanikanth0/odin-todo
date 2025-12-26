@@ -1,5 +1,10 @@
 import "./styles.css";
-import { renderTodayTab } from "./tabs/today.js";
+import {
+  renderTodayTab,
+  renderUpcomingTab,
+  renderAnytimeTab,
+  renderSomedayTab
+} from "./tabs/tabs.js";
 
 const sidebar = document.querySelector(".sidebar");
 sidebar.addEventListener("click", renderTab);
@@ -10,5 +15,8 @@ function renderTab(e) {
 
   switch (tab.dataset.label) {
     case "today": renderTodayTab(); break;
+    case "upcoming": renderUpcomingTab(); break;
+    case "anytime": renderAnytimeTab(); break;
+    case "someday": renderSomedayTab(); break;
   }
 }
