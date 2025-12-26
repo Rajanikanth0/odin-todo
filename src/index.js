@@ -33,4 +33,4 @@ function addDataManually() {
 // sidebarProject.addEventListener("click", renderProjectTab);
 
 // addDataManually();
-renderProjectTab();
+// renderProjectTab();

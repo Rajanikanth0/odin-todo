@@ -19,8 +19,11 @@ ul {
 }
 button {
   border: none;
-  font: inherit;
   cursor: pointer;
+}
+button, input, textarea {
+  font-family: inherit;
+  font-size: 1.2rem;
 }
 
 .container {
@@ -76,4 +79,32 @@ button {
 .main-content > * {
   background-color: lightgray;
   padding: var(--big-space);
+}
+
+/* new-project form */
+
+.main-content .new-projectForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--big-space);
+}
+
+.new-projectForm .form-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--small-space);
+
+  color: white;
+  font-weight: bold;
+  background-color: lightcoral;
+  padding: var(--small-space);
+}
+
+.new-projectForm textarea {
+  resize: none;
+}
+
+.new-projectForm input,
+.new-projectForm textarea {
+  padding: var(--small-space);
 }

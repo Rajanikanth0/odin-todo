@@ -6,4 +6,14 @@ function createElement(tag, { classes = [], text = "" } = []) {
   return element;
 }
 
-export { createElement };
+function createElementAttributes(tag, attrObject) {
+  const element = createElement(tag);
+  
+  for (const [key, value] in attrObject) {
+    element.setAttribute(key, value);
+  }
+
+  return element;
+}
+
+export { createElement, createElementAttributes };
