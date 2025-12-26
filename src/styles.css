@@ -51,3 +51,23 @@ button, input, textarea {
   cursor: pointer;
   padding: var(--small-space);
 }
+
+/* content */
+
+.content {
+  padding: 3rem;
+}
+
+.content li {
+  display: flex;
+  gap: var(--small-space);
+
+  padding: var(--big-space);
+  /* border-top: thin solid black; */
+}
+
+.content h2,
+.content h3 {
+  padding: var(--big-space);
+  border-bottom: thin solid black;
+}
