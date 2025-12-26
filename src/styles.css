@@ -26,3 +26,28 @@ button, input, textarea {
   font-size: 1.2rem;
 }
 
+.container {
+  width: 55rem;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+}
+
+/* sidebar */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--big-space);
+
+  background-color: rgb(238, 238, 238);
+}
+
+.sidebar li {
+  display: flex;
+  gap: var(--small-space);
+
+  cursor: pointer;
+  padding: var(--small-space);
+}
