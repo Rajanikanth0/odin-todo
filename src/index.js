@@ -1,6 +1,5 @@
 import "./styles.css";
 import { Project, Task } from "./modules/project.js";
-import { renderProjectTab } from "./tabs/project";
 
 function addDataManually() {
   const project1 = new Project(
