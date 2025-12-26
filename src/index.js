@@ -1,14 +1,14 @@
 import "./styles.css";
+import { renderTodayTab } from "./tabs/today.js";
 
 const sidebar = document.querySelector(".sidebar");
-const content = document.querySelector(".content");
+sidebar.addEventListener("click", renderTab);
 
 function renderTab(e) {
   const tab = e.target.closest("[data-label]");
   if (!tab) return;
 
-  content.textContent = "";
-  console.log(tab.dataset.label);
+  switch (tab.dataset.label) {
+    case "today": renderTodayTab(); break;
+  }
 }
-
-sidebar.addEventListener("click", renderTab);
